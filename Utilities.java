@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
 interface MyConstants
 {
     //----- Resource files
-    static final String PATH             = "src/main/java/Ex8/resources/";
+    static final String PATH             = "resources/";
     static final String FILE_BG          = PATH + "background.jpg"; 
     static final String FILE_BOWL_MAIN   = PATH + "bowl_rice.png";
     static final String FILE_BOWL_ALT    = PATH + "bowl_fish.png";    
