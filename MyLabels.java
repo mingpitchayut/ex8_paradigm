@@ -71,16 +71,88 @@ class FishLabel extends BaseLabel
     
     // (1) Complete the following methods to update fishLabel's location when
     //     pressing arrow keys
-    public void updateLocation()  { }    
-    public void moveUp()          { }
-    public void moveDown()        { }
-    public void moveLeft()        { }
-    public void moveRight()       { }   
-    
+    public void updateLocation()  {
+        // This method will be called after curX and curY are updated
+        // This set the new bounds for the label
+        setBounds(curX, curY, width, height);
+        parentFrame.repaint();  // repaint the frame to show updated location
+
+    }
+
+    public void moveUp()          {
+        // Move only if not caught and vertical movement is allowed
+        if (!caught && verticalMove){
+            // decrease curY
+            curY -= 10;
+            // Check for upperBound(Top of the sea)
+            if (curY < upperBound){
+                curY = upperBound;
+            }
+            // Call updateLocation()
+            updateLocation();
+        }
+    }
+    public void moveDown()        {
+        if (!caught && verticalMove){
+            // increase curY
+            curY += 10;
+
+            // Check for lowerBound (Bottom of the sea)
+            if (curY + height > lowerBound){
+                curY = lowerBound;
+            }
+
+            // Call updateLocation()
+            updateLocation();
+        }
+    }
+    public void moveLeft()        {
+        if (!caught && horizontalMove){
+            // decrease curX
+            curX -= 10;
+
+            // Handle wrapping around the left and of the frame
+            if (curX + width < 0){
+                curX = MyConstants.FRAME_WIDTH; // Appear on the right side
+            }
+
+            // Change icon to fish_left.png
+            setIcon(iconMain);  // iconMain is set to fish_left.png btw
+
+            // Call updateLocation()
+            updateLocation();
+        }
+    }
+    public void moveRight()       {
+        if (!caught && horizontalMove){
+            // increase curX
+            curX += 10;
+
+            // Handle wrapping around the right end of the frame
+            if (curX > MyConstants.FRAME_WIDTH){
+                curX = -width;  // Appear on the left side
+            }
+
+            // Change icon to fish_right.png
+            setIcon(iconAlt);   // iconAlt = fish_right.png
+
+            // Call updateLocation()
+            updateLocation();
+        }
+    }
+
     // (2) Complete the method to make fishLabel jump away from netLabel to a
     //     random location in the sea
     //     - Also reset frame's title to indicate that fish is swimming
-    public void escape()          { }
+    public void escape()          {
+        // Only escape if caught
+        if (caught){
+            // set caught to false
+            // Generate random curX within frame width
+            // Generate random curY within sea bounds (upperBound to lowerBound)
+            // Set frame title to "Fish is swimming"
+        }
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
