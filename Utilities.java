@@ -28,6 +28,8 @@ interface MyConstants
     static final int SEPARATOR_Y   = 200;
     static final int LABEL_WIDTH   = 100;
     static final int LABEL_HEIGHT  = 80;
+
+
 }
 
 

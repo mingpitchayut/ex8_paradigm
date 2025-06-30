@@ -183,28 +183,21 @@ class FishLabel extends BaseLabel
 
 class NetLabel extends BaseLabel  implements MouseMotionListener
 {
-    private int offsetX, offsetY;     // We will use this in the MouseListener method
-
     public NetLabel(String file1, int w, int h, MainApplication pf)				
     { 
         super(file1, null, w, h, pf);
         // Make NetLabel listen to mouse motion events
         addMouseMotionListener(this);
-        addMouseListener(this);
     }   
-
-
-    // (4) Implement mouseDragged to handle event & add MouseMotionListener
-    //     to this object
 
     @Override
     public void mouseDragged(MouseEvent e){
-        // This method will call when the mouse is dragged over this component
-
-        // Update Net's position - Get the current mouse coordinates relative to the NetLabel
+        // Get the current mouse coordinates relative to the NetLabel's parent container(contentpane)
+        // by translating the mouse's click position from the component's view to the parent frame's content pane.
+        Point mouseLocationInParent = SwingUtilities.convertPoint(this, e.getPoint(), parentFrame.getContentPane());
         // Make the center of the label follow the mouse by halving its width and height
-        curX = e.getX() - (width/2);
-        curY = e.getY() - (height/2);
+        curX = mouseLocationInParent.x - (width/2);
+        curY = mouseLocationInParent.y - (height/2);
 
         // Make the Net stays within the boundary
         if (curX < 0) curX = 0;
@@ -263,18 +256,6 @@ class NetLabel extends BaseLabel  implements MouseMotionListener
         // Repaint the frame to show updated location
         parentFrame.repaint();
     }
-
-    // MouseListener Methods (Overridden)
-    @Override
-    public void mousePressed(MouseEvent e){
-        // Store the offset from NetLabel's top-left corner to the mouse click point
-        offsetX = e.getX();
-        offsetY = e.getY();
-    }
-
-
-
-
 }
 
 ////////////////////////////////////////////////////////////////////////////////
